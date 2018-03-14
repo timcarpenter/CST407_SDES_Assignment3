@@ -362,41 +362,101 @@ namespace CST407_SDES_Assignment3
 
         int[] Sbox(int[] SArray, int boxversion)
         {
-            int[,] sb0 = { { 01, 00, 11, 10 },{ 11, 10, 01, 00 },{ 00, 10, 01, 11 },{ 11, 01, 11, 10 } };
-            int[,] sb1 = { { 00,01,10,11 }, { 10,00,01,11 }, { 11,00,01,00 }, { 10,01,00,11} };
-
             int[] sboxdArray = new int[MAX_2];
             int[] sboxdArray1 = new int[MAX_2];
             int[] sboxdArray2 = new int[MAX_2];
-
+            
             sboxdArray1[0] = SArray[0]; //r
             sboxdArray2[0] = SArray[1]; //c
             sboxdArray2[1] = SArray[2]; //c
             sboxdArray1[1] = SArray[3]; //r
 
-            if (boxversion == 1 )
+            //int[,] sb0 = { { 01, 00, 11, 10 },
+            //               { 11, 10, 01, 00 },
+            //               { 00, 10, 01, 11 },
+            //               { 11, 01, 11, 10 } };
+
+            //int[,] sb1 = { { 00,01,10,11 }, 
+            //               { 10,00,01,11 }, 
+            //               { 11,00,01,00 }, 
+            //               { 10,01,00,11} };
+            if (boxversion == 0)
             {
-                for(int i = 0; i < sb0.Length; i++)
+                if (((sboxdArray1[0] == 1 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 0)) ||
+                    ((sboxdArray1[0] == 0 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 1)) ||
+                    ((sboxdArray1[0] == 0 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 1)))
                 {
-                    for (int j = 0; j<sb0.Length;j++)
-                    {
-                        if (sboxdArray1[MAX_2] == sb0[i,j])
-                        {
-                            sboxdArray[i+1] = sb0[i, j];
-                            return sboxdArray;
-                        }
-                    }
+                    sboxdArray[0] = 0;
+                    sboxdArray[1] = 0;
+                }
+
+                else if (((sboxdArray1[0] == 0 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 0)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 1)) ||
+                         ((sboxdArray1[0] == 0 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 0)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 0)))
+                {
+                    sboxdArray[0] = 0;
+                    sboxdArray[1] = 1;
+                }
+
+                else if (((sboxdArray1[0] == 0 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 1)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 1)) ||
+                         ((sboxdArray1[0] == 0 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 1)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 1)))
+                {
+                    sboxdArray[0] = 1;
+                    sboxdArray[1] = 0;
+                }
+
+                else if (((sboxdArray1[0] == 0 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 0)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 0)) ||
+                         ((sboxdArray1[0] == 0 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 0)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 0)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 0)))
+                {
+                    sboxdArray[0] = 1;
+                    sboxdArray[1] = 1;
                 }
             }
-            else
+
+            if (boxversion == 1)
             {
+                if (((sboxdArray1[0] == 0 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 0)) ||
+                    ((sboxdArray1[0] == 0 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 1)) ||
+                    ((sboxdArray1[0] == 1 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 1)) ||
+                    ((sboxdArray1[0] == 1 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 0)) ||
+                    ((sboxdArray1[0] == 1 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 0)) )
+                {
+                    sboxdArray[0] = 0;
+                    sboxdArray[1] = 0;
+                }
 
+                else if (((sboxdArray1[0] == 0 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 1)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 1)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 1)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 0)))
+                {
+                    sboxdArray[0] = 0;
+                    sboxdArray[1] = 1;
+                }
 
+                else if (((sboxdArray1[0] == 0 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 0)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 0)) ||
+                         ((sboxdArray1[0] == 0 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 0)))
+                {
+                    sboxdArray[0] = 1;
+                    sboxdArray[1] = 0;
+                }
 
-
+                else if (((sboxdArray1[0] == 1 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 0 && sboxdArray2[1] == 0)) ||
+                         ((sboxdArray1[0] == 0 && sboxdArray1[1] == 0) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 1)) ||
+                         ((sboxdArray1[0] == 0 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 1)) ||
+                         ((sboxdArray1[0] == 1 && sboxdArray1[1] == 1) && (sboxdArray2[0] == 1 && sboxdArray2[1] == 1)))
+                {
+                    sboxdArray[0] = 1;
+                    sboxdArray[1] = 1;
+                }
             }
-
-
 
             return sboxdArray;
         }
@@ -412,7 +472,7 @@ namespace CST407_SDES_Assignment3
                 p4array = new int[MAX_4], //for 4bit perm
                 switch8bit = new int[MAX_8]; //for unaltered 4bitRight and postP4xor switch 
 
-            int sboxnumb = 1, sboxnumb2 = 2;
+            int sboxnumb = 0, sboxnumb1 = 1;
 
             //take in key from form
             string enString = txtbx_toEncrypt.Text;
@@ -455,7 +515,7 @@ namespace CST407_SDES_Assignment3
 
             //array through sbox from 4bit to 2bit
             p2left = Sbox(SO04bit, sboxnumb);
-            p2right = Sbox(SO14bit, sboxnumb2);
+            p2right = Sbox(SO14bit, sboxnumb1);
 
             //combine 2bit to 4bit
             for (int i = 0; i < p2left.Length; i++)
@@ -511,7 +571,7 @@ namespace CST407_SDES_Assignment3
 
             //array through sbox from 4bit to 2bit
             p2left = Sbox(SO04bit, sboxnumb );
-            p2right = Sbox(SO14bit, sboxnumb2);
+            p2right = Sbox(SO14bit, sboxnumb1);
 
             //combine 2bit to 4bit
             for (int i = 0; i < p2left.Length; i++)
@@ -560,7 +620,7 @@ namespace CST407_SDES_Assignment3
                 p4array = new int[MAX_4], //for 4bit perm
                 switch8bit = new int[MAX_8]; //for unaltered 4bitRight and postP4xor switch 
 
-            int sboxnumb = 1, sboxnumb2 = 2;
+            int sboxnumb = 0, sboxnumb2 = 1;
 
             //take in key from form
             string enString = txtbx_toDecrypt.Text;
